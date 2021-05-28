@@ -1,0 +1,9 @@
+{
+  "general": {
+    "login": {
+      "username": "Utilizador",
+      "password": "Password",
+      "button": "Login"
+    }
+  }
+}
