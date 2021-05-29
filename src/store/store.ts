@@ -1,17 +1,21 @@
 import { Action, combineReducers, Reducer } from "redux";
-import { baseReducer, BaseState } from ".";
+import { AuthState, baseReducer, BaseState } from ".";
+import { authReducer } from "./auth";
 
 export interface StoreState {
   baseState: BaseState;
+  authState: AuthState;
 }
 
 interface StoreReducer {
   baseState: any;
+  authState: any;
 }
 
 const appReducer = (): Reducer<StoreReducer> => {
   return combineReducers({
     baseState: baseReducer,
+    authState: authReducer,
   });
 };
 

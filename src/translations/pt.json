@@ -2,7 +2,9 @@
   "general": {
     "login": {
       "username": "Utilizador",
+      "usernamePlaceholder": "Introduza o seu nome de utilizador",
       "password": "Password",
+      "passwordPlaceholder": "Introduza a sua palavra-passe",
       "button": "Login"
     }
   }

@@ -20,6 +20,14 @@ export default function configureStore(
 
   const isDebugActive = process.env.REACT_APP_LOG || 0;
 
+  const store = createStore(
+    rootReducer(),
+    initialState as any,
+    isDebugActive
+      ? composeEnhancers(applyMiddleware(routerMiddleware(history)))
+      : applyMiddleware(routerMiddleware(history))
+  );
+
   return createStore(
     rootReducer(),
     initialState as any,
