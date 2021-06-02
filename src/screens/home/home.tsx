@@ -6,6 +6,7 @@ import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { Dashboard } from "../dashboard";
+import { AvailableCookies, CookieHelper } from "../../helpers";
 
 export const Home: React.FC = () => {
   const { auth, logout } = useAuth();
@@ -41,6 +42,7 @@ export const Home: React.FC = () => {
               <Menu.Item
                 onClick={(): void => {
                   logout();
+                  CookieHelper.delete(AvailableCookies.AppAuth);
                 }}
               >
                 Logout
@@ -60,9 +62,13 @@ export const Home: React.FC = () => {
             <Route exact path="/">
               Home Page
             </Route>
-            <Route exact path="/login">
-              <LoginForm />
-            </Route>
+            <Route
+              exact
+              path="/login"
+              render={(): React.ReactNode =>
+                auth.auth ? <Redirect to="/dashboard" /> : <LoginForm />
+              }
+            />
             <Route exact path="/register">
               <RegisterForm />
             </Route>

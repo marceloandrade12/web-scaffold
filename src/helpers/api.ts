@@ -21,9 +21,14 @@ export class ApiManager {
   static login = async (
     user: string,
     password: string
-  ): Promise<{ auth: boolean; token: string }> => {
+  ): Promise<{
+    auth: boolean;
+    token: string;
+    expiresIn: string;
+    expiresInUnit: string;
+  }> => {
     const url = `${apiUrl}/${AvailableMethods.login}`;
-    let data = { auth: false, token: "" };
+    let data = { auth: false, token: "", expiresIn: "", expiresInUnit: "" };
     await axios
       .post(url, { user, password }, axiosConfig)
       .then((response) => {

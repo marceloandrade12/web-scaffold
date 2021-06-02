@@ -1,7 +1,12 @@
 import { AnyAction } from "redux";
+import { AvailableCookies, CookieHelper } from "../../helpers";
 import { AuthActionTypes, AuthState } from "./types";
 
-export const initialAuthState: AuthState = {
+const authStateFromCookie = CookieHelper.get<AuthState>(
+  AvailableCookies.AppAuth
+);
+
+export const initialAuthState: AuthState = authStateFromCookie || {
   auth: false,
 };
 

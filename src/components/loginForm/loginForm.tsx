@@ -1,7 +1,12 @@
 import React from "react";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
-import { ApiManager, Logger } from "../../helpers";
+import {
+  ApiManager,
+  AvailableCookies,
+  CookieHelper,
+  Logger,
+} from "../../helpers";
 import { Form, Input } from "antd";
 import { useAuth } from "../../hooks";
 import { Link, useHistory } from "react-router-dom";
@@ -26,10 +31,17 @@ export const LoginForm: React.FC = () => {
             Logger.log("LoginForm >> OnFinish >> Then >>", response);
             if (response.auth) {
               // so far so good - store token received
-              login({
+              const object = {
                 ...response,
                 user: values.username,
-              });
+              };
+              login(object);
+              CookieHelper.set(
+                AvailableCookies.AppAuth,
+                object,
+                response.expiresIn,
+                response.expiresInUnit
+              );
               history.push("/dashboard");
             }
           }
