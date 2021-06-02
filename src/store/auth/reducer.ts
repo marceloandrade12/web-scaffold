@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import { AuthActionTypes, AuthState } from "./types";
 
 export const initialAuthState: AuthState = {
-  loggedIn: false,
+  auth: false,
 };
 
 export const authReducer = (
@@ -16,8 +16,11 @@ export const authReducer = (
       };
     case AuthActionTypes.LOGOUT:
       return {
-        loggedIn: false,
-        apiToken: undefined,
+        auth: false,
+        token: undefined,
+        user: undefined,
+        expiresIn: undefined,
+        expiresInUnit: undefined,
       };
     default: {
       return state;

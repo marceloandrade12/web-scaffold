@@ -28,11 +28,5 @@ export default function configureStore(
       : applyMiddleware(routerMiddleware(history))
   );
 
-  return createStore(
-    rootReducer(),
-    initialState as any,
-    isDebugActive
-      ? composeEnhancers(applyMiddleware(routerMiddleware(history)))
-      : applyMiddleware(routerMiddleware(history))
-  );
+  return store;
 }

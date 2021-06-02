@@ -11,7 +11,7 @@ export const Dashboard: React.FC = () => {
       </h1>
       <h2>Dados do User</h2>
       <p style={{ wordBreak: "break-all" }}>
-        <b>Token:</b> {auth.apiToken}
+        <b>Token:</b> {auth.token}
       </p>
     </div>
   );

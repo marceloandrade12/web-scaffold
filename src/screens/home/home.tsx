@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
           <Menu.Item key="home" icon={<HomeOutlined />}>
             <Link to="/"></Link>
           </Menu.Item>
-          {!auth.loggedIn && (
+          {!auth.auth && (
             <Menu.Item
               key="Login-Link"
               style={{ right: "0", position: "absolute" }}
@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
               <Link to="/login">Login</Link>
             </Menu.Item>
           )}
-          {auth.loggedIn && (
+          {auth.auth && (
             <SubMenu
               key="SubMenu"
               style={{ right: "0", position: "absolute" }}
@@ -70,7 +70,7 @@ export const Home: React.FC = () => {
               exact
               path="/dashboard"
               render={(): React.ReactNode =>
-                auth.loggedIn ? <Dashboard /> : <Redirect to="/login" />
+                auth.auth ? <Dashboard /> : <Redirect to="/login" />
               }
             />
           </Switch>

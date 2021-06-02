@@ -1,7 +1,9 @@
 export interface AuthState {
-  apiToken?: string;
+  token?: string;
   user?: string;
-  loggedIn: boolean;
+  expiresIn?: string;
+  expiresInUnit?: string;
+  auth: boolean;
 }
 
 export enum AuthActionTypes {

@@ -15,39 +15,35 @@ export const LoginForm: React.FC = () => {
 
   const history = useHistory();
 
-  Logger.log("LoginForm > render >", {});
+  const handleOnFinish = React.useCallback((): void => {
+    form
+      .validateFields()
+      .then(async (values) => {
+        form.resetFields();
+        // call login
+        await ApiManager.login(values.username.trim(), values.password).then(
+          (response) => {
+            Logger.log("LoginForm >> OnFinish >> Then >>", response);
+            if (response.auth) {
+              // so far so good - store token received
+              login({
+                ...response,
+                user: values.username,
+              });
+              history.push("/dashboard");
+            }
+          }
+        );
+      })
+      .catch((info) => {
+        Logger.log("LoginForm >> OnFinish >> Catch >> Validate Failed:", info);
+      });
+  }, [form, history, login]);
+
+  Logger.log("LoginForm > render");
 
   return (
-    <Form
-      name="login-form"
-      form={form}
-      onFinish={(values): void => {
-        form
-          .validateFields()
-          .then(async (values) => {
-            form.resetFields();
-            // call login
-            await ApiManager.login(
-              values.username.trim(),
-              values.password
-            ).then((response) => {
-              if (response.auth) {
-                // so far so good
-                // store token received
-                login({
-                  loggedIn: true,
-                  apiToken: response.token,
-                  user: values.username,
-                });
-                history.push("/dashboard");
-              }
-            });
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
-    >
+    <Form name="login-form" form={form} onFinish={handleOnFinish}>
       <Form.Item
         label={t("general.login.username")}
         name="username"
